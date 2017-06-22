@@ -1,0 +1,76 @@
+columns:
+    - name: age
+      index: 0
+      is_qi: True
+      is_sensible: False
+      type: number
+    - name: workclass
+      index: 1
+      is_qi: True
+      is_sensible: False
+      type: category
+    - name: final_weight
+      index: 2
+      is_qi: False
+      is_sensible: False
+      type: number
+    - name: education
+      index: 3
+      is_qi: False
+      is_sensible: False
+      type: category
+    - name: education_num
+      index: 4
+      is_qi: True
+      is_sensible: False
+      type: number
+    - name: marital_status
+      index: 5
+      is_qi: True
+      is_sensible: False
+      type: category
+    - name: occupation
+      index: 6
+      is_qi: True
+      is_sensible: False
+      type: category
+    - name: relationship
+      index: 7
+      is_qi: False
+      is_sensible: False
+      type: category
+    - name: race
+      index: 8
+      is_qi: True
+      is_sensible: False
+      type: category
+    - name: sex
+      index: 9
+      is_qi: True
+      is_sensible: False
+      type: category
+    - name: capital_gain
+      index: 10
+      is_qi: False
+      is_sensible: False
+      type: number
+    - name: capital_loss
+      index: 11
+      is_qi: False
+      is_sensible: False
+      type: number
+    - name: hours_per_week
+      index: 12
+      is_qi: False
+      is_sensible: False
+      type: number
+    - name: native_country
+      index: 13
+      is_qi: True
+      is_sensible: False
+      type: category
+    - name: class
+      index: 14
+      is_qi: False
+      is_sensible: True
+      type: category
