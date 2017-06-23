@@ -33,7 +33,9 @@ class Data(object):
         return indices_wanted, names_wanted
 
     def load_data(self, yaml_file, csv_file):
+        print('\t Load config.')
         indices_wanted, names_wanted = self.load_config(yaml_file)
+        print('\t Load csv...')
         data = pd.read_csv(csv_file, usecols = indices_wanted, names=names_wanted)
         return data
     
@@ -47,8 +49,8 @@ class Data(object):
             return col.map(_get_index)
 
     def convert_categories(self):
+        print('\t Temporary convert categories to numbers.')
         category_dict = { col: self.value_list(col, sort=False) for col in self.records if not self.is_numeric(col) }
-        #print("\n Category DICT : \n %s" % category_dict )
         self.records = self.records.apply(self._replace_func)
         return category_dict
 
@@ -61,12 +63,9 @@ class Data(object):
         value_lists = []
         print( self.column_names )
         for i in range(self.qi_length()):
-            print('\n column_name: %s' % self.column_names[i])
-            print('Value Lists i: %s' % i)
-            #print('self.value_list: %s' % self.value_list( self.column_names[i] ))
             value_lists.append( self.value_list(self.column_names[i]) )
             #print('Value Lists[i]: \n %s' % value_lists[i])
-            print('self.value_list: %s' % value_lists[i] )
+            #print('self.value_list: %s' % value_lists[i] )
         #print('\n value lists: %s' % value_lists)
         return value_lists
 
@@ -77,15 +76,13 @@ class Data(object):
         return False
 
     def qi_length(self):
-        print('\n qi_length: %s' % (len(self.records.columns) - 1))
+        #print('\n qi_length: %s' % (len(self.records.columns) - 1))
         return len(self.records.columns) - 1
 
     def column_width(self, col):
-        #sorted_list = self.value_list(col)
-        #return sorted_list[-1] - sorted_list[0]
         print('\n max: %s \t min: %s' %( self.records[col].max(), self.records[col].min() ))
         print('\n max: %s \t min: %s' %( float(self.records[col].max()), float(self.records[col].min()) ))
-        #print('\n self.records: %s \n %s' %(col, self.records))
+        print('\n self.records: %s \n %s' %(col, self.records))
         return float(self.records[col].max()) - float(self.records[col].min())
 
     def column_widths(self):
@@ -96,15 +93,6 @@ class Data(object):
         print('\n Widths: %s' % widths)
         return widths
 
-    #someX, someY = 0.3, 0.8
-    #currentAxis = plt.gca()
-    #currentAxis.add_patch(Rectangle((someX, someY), 0.3, 0.3, alpha=0.3, facecolor="lightgrey"))
-    #N = 50
-    #x = np.random.rand(N)
-    #y = np.random.rand(N)
-    #df = pd.DataFrame(np.random.rand(50, 4), columns=['a', 'b', 'c', 'd'])
-    #df.plot.scatter(x='a', y='b')
-
     def plot(self, x_col = None, y_col = None):
         # if not columns to plot are specified, use column with index 0 and 1
         if not x_col:
@@ -113,7 +101,7 @@ class Data(object):
             y_col = self.records.columns[1]
         assert(x_col in self.records.columns), 'Data.plot: given column name %s for x_col is not valid. Use one out of %s' %(x_col, self.records.columns)
         assert(y_col in self.records.columns), 'Data.plot: given column name %s for y_col is not valid. Use one out of %s' %(y_col, self.records.columns)
-        ## TODO: x_col, y_col must contain numeric entries to plot
+        ## TODO: assert x_col, y_col must contain numeric entries to plot
         try:
             self.records.plot.scatter(x=x_col, y=y_col)
             plt.show()
@@ -121,5 +109,5 @@ class Data(object):
             print('PLOT only of numeric values possible')
 
 if __name__ == '__main__':
-    newData = Data('data/adult.yaml', 'data/adult_klein.data')
+    newData = Data('data/adult_klein.yaml', 'data/adult_klein.data')
     newData.plot()

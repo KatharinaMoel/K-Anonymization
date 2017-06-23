@@ -54,7 +54,6 @@ class Config(object):
 def read_yaml(file):
     with open(file, 'r') as readfile:
         data = yaml.load(readfile)
-    print(data)
     return data
 
 def write_yaml(self, data, file=None):

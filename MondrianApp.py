@@ -12,10 +12,6 @@ class Mondrian(object):
         self.data = DataApp.Data(yaml_file, csv_file)
         print('\n First data: \n %s' % self.data.records['occupation'])
         self.result = []
-        #val_lists_len = [ len(self.data.value_list(col)) for col in self.data.records.columns ]
-        #print('\n Value Lists length: %s' %val_lists_len)
-        #low = [0]*self.data.qi_length()
-        #high = [ i-1 for i in val_lists_len ]
         partition = PartitionApp.Partition(self.data, self.k)
         self.anonymize(partition)
 
@@ -37,8 +33,6 @@ class Mondrian(object):
                 partition.allow[dim] = 0
                 continue
             # find low/ high for new partitions lhs, rhs
-            #lhs_high = list( lhs_frame[col].idxmax() )
-            #rhs_low = list( rhs_frame[col].idxmin() )
             lhs_data = DataApp.Data(from_records=True, frame=lhs_frame)
             rhs_data = DataApp.Data(from_records=True, frame=rhs_frame)
             lhs = PartitionApp.Partition(lhs_data, self.k)
@@ -48,11 +42,9 @@ class Mondrian(object):
             return
         self.result.append(partition)
         print('\n \n FINISHED!')
-            
-
 
 if __name__ == '__main__':
-    newMondrian = Mondrian('data/adult.yaml', 'data/adult_klein.data')
+    newMondrian = Mondrian('data/adult_klein.yaml', 'data/adult.data')
     newMondrian.data.plot()
 
     
