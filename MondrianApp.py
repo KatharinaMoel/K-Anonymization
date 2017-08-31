@@ -44,7 +44,7 @@ class Mondrian(object):
         print('\n \n FINISHED!')
 
 if __name__ == '__main__':
-    newMondrian = Mondrian('data/adult_klein.yaml', 'data/adult.data')
+    newMondrian = Mondrian('data/adult.yaml', 'data/adult.data')
     newMondrian.data.plot()
 
     
